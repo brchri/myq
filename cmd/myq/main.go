@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/joeshaw/myq"
+	"github.com/brchri/myq"
 )
 
 func usage() {

@@ -1,4 +1,4 @@
-module github.com/joeshaw/myq
+module github.com/brchri/myq
 
 go 1.12
 

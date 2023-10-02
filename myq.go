@@ -210,6 +210,16 @@ func (s *Session) fillAccounts() error {
 	return nil
 }
 
+// Manually set the auth token; useful for token caching
+func (s *Session) SetToken(token string) {
+	s.token = token
+}
+
+// Retrun the current auth token; useful for token caching
+func (s *Session) GetToken() string {
+	return s.token
+}
+
 // Devices returns the list of MyQ devices
 func (s *Session) Devices() ([]Device, error) {
 	if err := s.fillAccounts(); err != nil {
