@@ -12,16 +12,16 @@ import (
 )
 
 const (
-	accountsEndpoint = "https://accounts-east.myq-cloud.com/api/v6.0/accounts"
+	accountsEndpoint = "https://accounts.myq-cloud.com/api/v6.0/accounts"
 
 	// Parameter is account ID
-	devicesEndpointFmt = "https://devices-east.myq-cloud.com/api/v5.2/Accounts/%s/Devices"
+	devicesEndpointFmt = "https://devices.myq-cloud.com/api/v5.2/Accounts/%s/Devices"
 
 	// Parameters are account ID and device serial number
-	deviceEndpointFmt = "https://devices-east.myq-cloud.com/api/v5.2/Accounts/%s/Devices/%s"
+	deviceEndpointFmt = "https://devices.myq-cloud.com/api/v5.2/Accounts/%s/Devices/%s"
 
 	// Parameters are account ID, device serial number, and action (open or close)
-	deviceActionsEndpointFmt = "https://account-devices-gdo-east.myq-cloud.com/api/v5.2/Accounts/%s/door_openers/%s/%s"
+	deviceActionsEndpointFmt = "https://account-devices-gdo.myq-cloud.com/api/v5.2/Accounts/%s/door_openers/%s/%s"
 )
 
 const (
