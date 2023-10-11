@@ -14,7 +14,7 @@ import (
 	"golang.org/x/net/html"
 )
 
-const oauthAuthorizeEndpoint = "https://partner-identity-east.myq-cloud.com/connect/authorize"
+const oauthAuthorizeEndpoint = "https://partner-identity.myq-cloud.com/connect/authorize"
 
 type oauth struct {
 	jar                 *cookiejar.Jar
@@ -47,12 +47,15 @@ func (o *oauth) authorize() (*url.URL, error) {
 	}
 
 	params := url.Values{}
-	params.Set("client_id", "IOS_CGI_MYQ")
+	params.Set("client_id", "ANDROID_CGI_MYQ")
 	params.Set("code_challenge", o.challenge)
 	params.Set("code_challenge_method", "S256")
-	params.Set("redirect_uri", "com.myqops://ios")
+	params.Set("redirect_uri", "com.myqops://android")
 	params.Set("response_type", "code")
 	params.Set("scope", "MyQ_Residential offline_access")
+	params.Set("prompt", "login")
+	params.Set("ui_locales", "en-US")
+	params.Set("acr_values", "unified_flow:v1  brand:myq")
 	u.RawQuery = params.Encode()
 
 	req, err := http.NewRequest("GET", u.String(), nil)
@@ -96,6 +99,10 @@ func (o *oauth) login(u *url.URL, email, password string) (*url.URL, error) {
 	params.Set("Email", email)
 	params.Set("Password", password)
 	params.Set("__RequestVerificationToken", o.verificationToken)
+	params.Set("Brand", "myq")
+	params.Set("UnifiedFlowRequested", "True")
+	params.Set("ReturnUrl", u.Query().Get("ReturnUrl"))
+	u.Path = "/Account/LoginWithEmail" // extracted from login form submit button
 
 	req, err := http.NewRequest(
 		"POST",
@@ -158,17 +165,16 @@ func (o *oauth) callback(u *url.URL) (*url.URL, error) {
 
 func (o *oauth) token(u *url.URL) (string, error) {
 	params := url.Values{}
-	params.Set("client_id", "IOS_CGI_MYQ")
-	params.Set("client_secret", "VUQ0RFhuS3lQV3EyNUJTdw==")
+	params.Set("client_id", "ANDROID_CGI_MYQ")
 	params.Set("code", u.Query().Get("code"))
 	params.Set("code_verifier", o.verifier)
 	params.Set("grant_type", "authorization_code")
-	params.Set("redirect_uri", "com.myqops://ios")
+	params.Set("redirect_uri", "com.myqops://android")
 	params.Set("scope", u.Query().Get("scope"))
 
 	req, err := http.NewRequest(
 		"POST",
-		"https://partner-identity-east.myq-cloud.com/connect/token",
+		"https://partner-identity.myq-cloud.com/connect/token",
 		strings.NewReader(params.Encode()),
 	)
 	if err != nil {
