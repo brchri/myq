@@ -14,7 +14,7 @@ import (
 	"golang.org/x/net/html"
 )
 
-const oauthAuthorizeEndpoint = "https://partner-identity.myq-cloud.com/connect/authorize"
+const oauthAuthorizeEndpoint = "https://partner-identity-east.myq-cloud.com/connect/authorize"
 
 type oauth struct {
 	jar                 *cookiejar.Jar
@@ -168,7 +168,7 @@ func (o *oauth) token(u *url.URL) (string, error) {
 
 	req, err := http.NewRequest(
 		"POST",
-		"https://partner-identity.myq-cloud.com/connect/token",
+		"https://partner-identity-east.myq-cloud.com/connect/token",
 		strings.NewReader(params.Encode()),
 	)
 	if err != nil {
